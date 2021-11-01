@@ -1,5 +1,5 @@
 # Easy Zip
-## A Command Line utility to make extracting .zip, .gz, .tar, and much more!
+## A Command Line utility to make extracting .zip, .gz, .tar, and much more, a lot easier!
 
 ### Current Commands
 - ```-h:   help menu```
