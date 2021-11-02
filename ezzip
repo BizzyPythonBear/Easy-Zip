@@ -15,7 +15,7 @@ fi
 
 case $fileType in
     -h)
-	echo "Easy Unzip v1.0.0"
+	echo "Easy Unzip v1.0.1"
 	echo " -h:   shows all args"
 	echo " -c: 	 see your current config"
 	echo " -a:   show amount of archives in ${output}"
@@ -24,7 +24,7 @@ case $fileType in
 	echo " -tar: uncompress .tar file (ezzip -gz <directory to file.tar>)"
 	;;
 	-c)
-	echo "Easy Unzip v1.0.0 Config"
+	echo "Easy Unzip v1.0.1 Config"
 	echo "Current output folder: ${output}"
 	;;
 	-a)
@@ -35,7 +35,7 @@ case $fileType in
 	if [[ "${2: -4}" == ".zip" ]]; then 
 		if [[ -f $2 ]]; then
 			thing="$(basename "$2" | sed 's/\(.*\)\..*/\1/')"
-			unzip "$2" -d $HOME/EzZip/$thing
+			f=$(unzip "$2" -d $HOME/EzZip/$thing)
 			echo "Successfully extracted."
 		else
 			echo "The file you tried to unzip couldn't be found."
