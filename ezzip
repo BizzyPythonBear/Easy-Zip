@@ -15,21 +15,33 @@ fi
 
 case $fileType in
     -h)
-	echo "Easy Unzip v1.0.1"
-	echo " -h:   shows all args"
-	echo " -c: 	 see your current config"
-	echo " -a:   show amount of archives in ${output}"
-	echo " -zip: unzip file (ezzip -zip <directory to file.zip>)"
-	echo " -gz:  uncompress .gz file (ezzip -gz <directory to file.gz>)"
-	echo " -tar: uncompress .tar file (ezzip -gz <directory to file.tar>)"
+	echo "Easy Unzip v1.0.2"
+	echo "-h:      shows all args"
+	echo "-c:      see your current config"
+	echo "-a:      show amount of archives in ${output}"
+	echo "-e:      erase all archives in ${output}"
+	echo "-zip:    unzip file (ezzip -zip <directory to file.zip>)"
+	echo "-gz:     uncompress .gz file (ezzip -gz <directory to file.gz>)"
+	echo "-tar:    uncompress .tar file (ezzip -tar <directory to file.tar>)"
+	echo "-tar.gz: uncompress .tar.gz file (ezzip -tar.gz <directory to file.tar.gz>)"
 	;;
 	-c)
-	echo "Easy Unzip v1.0.1 Config"
+	echo "Easy Unzip v1.0.2 Config"
 	echo "Current output folder: ${output}"
 	;;
 	-a)
 	sa=$(ls -l ${output} | grep "^d" | wc -l)
 	echo "There are currently: ${sa} archives in ${output}!"
+	;;
+	-e)
+	read -p "Are you sure you want to delete all archives? (Y/n) " delArchives
+	case $delArchives in
+		[Yy]* ) echo "Overwriting..."
+			rm -r $HOME/EzZip/*
+			;;
+		[Nn]* ) echo "Not deleting." ;;
+		*) echo "Not valid!" ;;
+	esac
 	;;
 	-zip)
 	if [[ "${2: -4}" == ".zip" ]]; then 
@@ -91,6 +103,26 @@ case $fileType in
 		fi
 	else
 		echo "That is not a tar file!"
+	fi	
+	;;
+	-tar.gz)
+	#tar -xzf filename.tar.gz
+	if [[ "${2: -7}" == ".tar.gz" ]]; then 
+		if [[ -f $2 ]]; then
+			thing="$(basename "$2" | sed 's/\(.*\)\..*/\1/' | sed 's/\(.*\)\..*/\1/')"
+			if [[ ! -d $HOME/EzZip/$thing ]]; then			
+				f=$(mkdir $output/$thing)
+				g=$(tar -xzf $2 -C $output/$thing)
+				echo "Successfully extracted."
+			else
+				echo "This archive has already been extracted!"
+			fi
+		else
+			echo "The file you tried to decompress couldn't be found."
+		fi
+	else
+		echo ${2: -4}
+		echo "That is not a tar.gz file!"
 	fi	
 	;;
     *)
