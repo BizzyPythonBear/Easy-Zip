@@ -1,18 +1,18 @@
 # Michael S. 2021
 # Easy Unzip Tool
-#!/bin/bash
+#!/usr/bin/env bash
 
 fileType=$1
 file=$2
 
-if [[ ! -d $HOME/.config/ezzip ]]; then
+if [ ! -d $HOME/.config/ezzip ]; then
 	mkdir $HOME/.config/ezzip
 	touch $HOME/.config/ezzip/ezziprc.sh
 	echo "# Default EzZip Config" > $HOME/.config/ezzip/ezziprc.sh
 	echo "outputFolder=${HOME}/EzZip" > $HOME/.config/ezzip/ezziprc.sh
 	source $HOME/.config/ezzip/ezziprc.sh
 else
-	if [[ -e $HOME/.config/ezzip/ezziprc.sh ]]; then
+	if [ -e $HOME/.config/ezzip/ezziprc.sh ]; then
 		source $HOME/.config/ezzip/ezziprc.sh
 	else
 		touch $HOME/.config/ezzip/ezziprc.sh
@@ -22,7 +22,7 @@ else
 	fi
 fi
 
-if [[ ! -d $outputFolder ]]; then
+if [ ! -d $outputFolder ]; then
 	echo "EzZip destination directory not found. Creating..."
 	mkdir "$outputFolder"
 	echo
@@ -30,7 +30,7 @@ fi
 
 case $fileType in
     -h)
-	echo "Easy Unzip v1.1.2"
+	echo "Easy Unzip v1.1.3"
 	echo "-h:      shows all args"
 	echo "-c:      see your current config"
 	echo "-rc:     reset config file"
@@ -56,7 +56,7 @@ case $fileType in
 	fi
 	;;
 	-c)
-	echo "Easy Unzip v1.1.2 Config"
+	echo "Easy Unzip v1.1.3 Config"
 	echo "Current output folder: ${outputFolder}"
 	;;
 	-a)
